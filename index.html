@@ -4,12 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>THC Units Calculator</title>
-
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --bg: #0f172a;
@@ -21,7 +19,6 @@
       --muted: #9ca3af;
       color-scheme: dark;
     }
-
     body {
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: radial-gradient(1200px 600px at 10% 10%, #1f2933, var(--bg));
@@ -30,25 +27,21 @@
       margin: 40px auto;
       padding: 0 16px;
     }
-
     .card {
       background: linear-gradient(180deg, #0b1220, var(--card));
       border-radius: 20px;
       padding: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,.45);
     }
-
     h1 {
       font-size: 1.6rem;
       margin: 0 0 6px;
       color: #ecfeff;
     }
-
     .subtitle {
       color: var(--muted);
       margin-bottom: 16px;
     }
-
     .badge {
       display: inline-block;
       background: var(--accent-soft);
@@ -59,23 +52,21 @@
       font-weight: 600;
       margin-bottom: 12px;
     }
-
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
       margin-top: 16px;
+      align-items: start;
     }
-
     label {
       font-size: .85rem;
       color: var(--muted);
       display: block;
       margin-bottom: 6px;
     }
-
     input {
-      width: 100%;
+      width: 90%;
       padding: 12px 14px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.1);
@@ -83,20 +74,17 @@
       color: var(--text);
       font-size: 1rem;
     }
-
     input:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px var(--accent-soft);
     }
-
     .row {
       display: flex;
       gap: 12px;
       margin-top: 18px;
       flex-wrap: wrap;
     }
-
     button {
       padding: 12px 16px;
       border-radius: 14px;
@@ -106,13 +94,11 @@
       font-weight: 700;
       cursor: pointer;
     }
-
     button.secondary {
       background: transparent;
       color: var(--muted);
       border: 1px solid rgba(255,255,255,.15);
     }
-
     .result {
       margin-top: 20px;
       padding: 18px;
@@ -120,19 +106,16 @@
       background: linear-gradient(180deg, #020617, #020617cc);
       border: 1px solid rgba(255,255,255,.08);
     }
-
     .units {
       font-size: 1.8rem;
       font-weight: 700;
       color: var(--accent);
       margin: 0;
     }
-
     .mg {
       color: var(--muted);
       margin-top: 6px;
     }
-
     .recommendation {
       margin-top: 18px;
       padding: 14px;
@@ -142,25 +125,44 @@
       color: #fde68a;
       font-size: .95rem;
     }
-
     .footer {
       margin-top: 14px;
       font-size: .8rem;
       color: var(--muted);
     }
-
     .mono {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
+  
+    select, input {
+      min-height: 48px;
+    }
+  
+    /* Compact form controls for better alignment */
+    .grid > div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    input, select {
+      height: 44px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+    label {
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+    }
+    #presetToggle {
+      font-size: 0.8rem;
+    }
   </style>
 </head>
-
 <body>
   <div class="card">
     <span class="badge">THC standard units</span>
     <h1>THC Units Calculator</h1>
     <p class="subtitle">Potency‑adjusted cannabis intake, similar to standard drinks.</p>
-
     <div class="grid">
       <div>
         <label>Amount (grams)</label>
@@ -169,21 +171,38 @@
       <div>
         <label>THC potency (%)</label>
         <input id="thc" type="number" min="0" step="0.1" value="25">
+        <div style="margin-top: 8px;">
+          <a href="#" id="presetToggle"
+             style="color:#86efac; text-decoration:none; font-weight:600; font-size: 0.8rem;">
+            Don't know? Choose a preset
+          </a>
+        </div>
+        <select id="preset" style="display:none; width:90%; padding:12px 14px; border-radius:14px;
+          border:1px solid rgba(255,255,255,.1); background:#020617; color:var(--text); font-size:1rem; margin-top: 8px;">
+          <option value="" selected>— Select a preset —</option>
+          <option value="18">Standard Flower (18% THC)</option>
+          <option value="22">Premium Flower (22% THC)</option>
+          <option value="10">Balanced (10% THC, 10% CBD)</option>
+          <option value="0">CBD Rich (0% THC, 20% CBD)</option>
+          <option value="10">Trim (≈10% THC)</option>
+          <option value="4">ABV (Already Vaped Bud — ≈4% THC)</option>
+          <option value="80">Distillate (80% THC)</option>
+          <option value="70">RSO (70% THC)</option>
+          <option value="65">BHO/Shatter (65% THC)</option>
+          <option value="75">Rosin (75% THC)</option>
+        </select>
       </div>
     </div>
-
     <div class="row">
       <button id="calcBtn">Calculate</button>
       <button id="resetBtn" class="secondary">Reset</button>
     </div>
-
     <div id="output" class="result"></div>
-
     <div class="recommendation">
       <b>Public‑health guideline:</b><br>
       Adults should not exceed <b>8 THC units per week</b> to reduce the risk of cannabis use disorder.
       <div class="footer">Source: University of Bath / Addiction (2026)</div>
-    
+    </div>
     <div class="footer" style="margin-top:10px;">
       Read more: 
       <a href="https://www.sciencealert.com/scientists-figured-out-a-standard-measure-for-cannabis-use"
@@ -192,37 +211,54 @@
         ScienceAlert — Standard Measure for Cannabis Use
       </a>
     </div>
-  </div>
 
+    <div class="footer">
+      Formula: <span class="mono">THC units = 2 × grams × THC%</span> • 1 unit = 5 mg THC
+    </div>
+  </div>
 <script>
   const gramsEl = document.getElementById('grams');
   const thcEl = document.getElementById('thc');
   const outEl = document.getElementById('output');
   const calcBtn = document.getElementById('calcBtn');
   const resetBtn = document.getElementById('resetBtn');
+  const presetToggle = document.getElementById('presetToggle');
+  const presetEl = document.getElementById('preset');
 
   function calculate() {
     const g = Math.max(0, parseFloat(gramsEl.value) || 0);
     const p = Math.max(0, parseFloat(thcEl.value) || 0);
-
     const mgTHC = g * 1000 * (p / 100);
     const units = mgTHC / 5;
-
     outEl.innerHTML = `
       <p class="units">${units.toFixed(2)} THC units</p>
       <p class="mg">${mgTHC.toFixed(1)} mg THC</p>
     `;
   }
-
   function reset() {
     gramsEl.value = '';
     thcEl.value = '';
+    if (presetEl) { presetEl.value = ''; presetEl.style.display = 'none'; }
     outEl.innerHTML = '';
   }
-
   calcBtn.onclick = calculate;
+  if (presetToggle && presetEl) {
+    presetToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isHidden = presetEl.style.display === 'none' || presetEl.style.display === '';
+      presetEl.style.display = isHidden ? 'block' : 'none';
+      // Small UX: focus dropdown when opened
+      if (isHidden) presetEl.focus();
+    });
+    presetEl.addEventListener('change', () => {
+      const v = presetEl.value;
+      if (v !== '') {
+        thcEl.value = v;     // apply average THC% for the selected category
+        calculate();
+      }
+    });
+  }
   resetBtn.onclick = reset;
-
   calculate();
 </script>
 </body>
